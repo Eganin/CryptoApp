@@ -19,6 +19,7 @@ interface ApiService {
     @GET(value = "pricemultifull")
     @Headers(value = ["Content-Type: application/json"])
     fun getFullPriceList(
+        @Query(QUERY_PARAM_API_KEY) apiKey: String = DEFAULT_API_KEY,
         @Query(QUERY_PARAM_FROM_SYMBOL) fromSymbol: String,
         @Query(QUERY_PARAM_TO_SYMBOLS) toSymbol: String = DEFAULT_SYMBOL
     ): Single<CoinPriceInfoRawData>
