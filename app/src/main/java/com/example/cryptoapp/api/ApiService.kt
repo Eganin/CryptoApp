@@ -2,12 +2,15 @@ package com.example.cryptoapp.api
 
 import com.example.cryptoapp.data.pojo.CoinPriceInfoRawData
 import com.example.cryptoapp.data.pojo.Response
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
+
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface ApiService {
+
+
     @GET(value = "top/totalvolfull")
     @Headers(value = ["Content-Type: application/json"])
     fun getTopCoinInto(
@@ -16,6 +19,7 @@ interface ApiService {
         @Query(QUERY_PARAM_TO_SYMBOL) toSymbol: String = DEFAULT_SYMBOL
     ): Single<Response>
 
+
     @GET(value = "pricemultifull")
     @Headers(value = ["Content-Type: application/json"])
     fun getFullPriceList(
@@ -23,6 +27,7 @@ interface ApiService {
         @Query(QUERY_PARAM_FROM_SYMBOL) fromSymbol: String,
         @Query(QUERY_PARAM_TO_SYMBOLS) toSymbol: String = DEFAULT_SYMBOL
     ): Single<CoinPriceInfoRawData>
+
 
     companion object {
         private const val QUERY_PARAM_LIMIT = "limit"
