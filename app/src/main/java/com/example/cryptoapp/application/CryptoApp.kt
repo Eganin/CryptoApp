@@ -13,6 +13,7 @@ class CryptoApp : Application() {
 
     companion object {
         private const val BASE_URL = "https://min-api.cryptocompare.com/data/"
+        const val BASE_URL_IMAGE = "https://cryptocompare.com"
     }
 
     override fun onCreate() {

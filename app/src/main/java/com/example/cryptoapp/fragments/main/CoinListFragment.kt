@@ -24,9 +24,6 @@ class CoinListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         coinViewModel = ViewModelProviders.of(this@CoinListFragment)[CoinViewModel::class.java]
-        //coinViewModel.priceList.observe(this@CoinListFragment , Observer{
-        //    println(it.toString())
-        //})
         coinViewModel.getDetailInfo(fromSymbol = "BTC").observe(this, Observer{
            Log.d("AAA",it.toString())
         })
