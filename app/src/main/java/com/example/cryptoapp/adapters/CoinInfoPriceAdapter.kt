@@ -10,7 +10,7 @@ import com.example.cryptoapp.views.CoinViewHolder
 
 class CoinInfoPriceAdapter : RecyclerView.Adapter<CoinViewHolder>() {
 
-    private var coinInfoPriceList = arrayListOf<CoinPriceInfo>()
+    private var coinInfoPriceList : List<CoinPriceInfo> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CoinViewHolder(
         itemView = LayoutInflater.from(parent.context).inflate(
@@ -23,8 +23,9 @@ class CoinInfoPriceAdapter : RecyclerView.Adapter<CoinViewHolder>() {
 
     override fun getItemCount() = coinInfoPriceList.size
 
-    fun bindCoins(data: ArrayList<CoinPriceInfo>) {
+    fun bindCoins(data: List<CoinPriceInfo>) {
         coinInfoPriceList = data
+        notifyDataSetChanged()
     }
 
 }
