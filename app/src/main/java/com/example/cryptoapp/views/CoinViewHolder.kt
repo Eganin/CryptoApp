@@ -5,26 +5,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.cryptoapp.R
+import com.example.cryptoapp.adapters.CoinInfoPriceAdapter
 import com.example.cryptoapp.data.pojo.CoinPriceInfo
+import com.example.cryptoapp.utils.imageOptions
 import kotlinx.android.synthetic.main.item_coin_info.view.*
 
-class CoinViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-    interface OnCLickCoinListener{
-        fun onCLick(coinPriceInfo : CoinPriceInfo)
-    }
-
-    var onCLickCoinListener : OnCLickCoinListener? = null
-
-    private val imageOptions = RequestOptions()
-        .placeholder(R.drawable.ic_baseline_attach_money_24)
-        .fallback(R.drawable.ic_baseline_attach_money_24)
-        .circleCrop()
-
+class CoinViewHolder(itemView: View , var listener : CoinInfoPriceAdapter.OnCLickCoinListener?) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(coinPriceInfo: CoinPriceInfo) {
         itemView.setOnClickListener{
-            onCLickCoinListener?.onCLick(coinPriceInfo=coinPriceInfo)
+            listener?.onCLick(coinPriceInfo=coinPriceInfo)
         }
 
         with(coinPriceInfo) {

@@ -10,12 +10,18 @@ import com.example.cryptoapp.views.CoinViewHolder
 
 class CoinInfoPriceAdapter : RecyclerView.Adapter<CoinViewHolder>() {
 
+    interface OnCLickCoinListener{
+        fun onCLick(coinPriceInfo : CoinPriceInfo)
+    }
+
+    var onCLickCoinListener : OnCLickCoinListener? = null
+
     private var coinInfoPriceList : List<CoinPriceInfo> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CoinViewHolder(
         itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.item_coin_info, parent, false
-        )
+        ),listener = onCLickCoinListener
     )
 
     override fun onBindViewHolder(holder: CoinViewHolder, position: Int) =

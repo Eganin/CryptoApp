@@ -1,5 +1,6 @@
 package com.example.cryptoapp.fragments.main
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_list_coins.*
 class CoinListFragment : Fragment() {
 
     private lateinit var coinViewModel: CoinViewModel
-    private lateinit var adapter: CoinInfoPriceAdapter
+    private val adapter =  CoinInfoPriceAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,8 +39,19 @@ class CoinListFragment : Fragment() {
         })
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is CoinInfoPriceAdapter.OnCLickCoinListener) {
+            adapter.onCLickCoinListener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        adapter.onCLickCoinListener = null
+    }
+
     private fun setupUI() {
-        adapter = CoinInfoPriceAdapter()
         coins_recycler_view.adapter = adapter
         coins_recycler_view.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
