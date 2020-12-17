@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">CryptoApp</string>
     <string name="text_last_update_title">Время последнего обновления :  </string>
+    <string name="seperator_text">/</string>
+    <string name="price_text">Price</string>
+    <string name="at_least_one_day">at least one day</string>
+    <string name="the_high_for_the_day">the high for the day</string>
+    <string name="update">Update</string>
+    <string name="the_last_deal">the last deal</string>
 </resources>

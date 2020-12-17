@@ -10,6 +10,12 @@ import kotlinx.android.synthetic.main.item_coin_info.view.*
 
 class CoinViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    interface OnCLickCoinListener{
+        fun onCLick(coinPriceInfo : CoinPriceInfo)
+    }
+
+    var onCLickCoinListener : OnCLickCoinListener? = null
+
     private val imageOptions = RequestOptions()
         .placeholder(R.drawable.ic_baseline_attach_money_24)
         .fallback(R.drawable.ic_baseline_attach_money_24)
@@ -17,6 +23,9 @@ class CoinViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
     fun bind(coinPriceInfo: CoinPriceInfo) {
+        itemView.setOnClickListener{
+            onCLickCoinListener?.onCLick(coinPriceInfo=coinPriceInfo)
+        }
 
         with(coinPriceInfo) {
             with(itemView) {
