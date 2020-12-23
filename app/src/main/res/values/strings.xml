@@ -7,4 +7,5 @@
     <string name="the_high_for_the_day">the high for the day</string>
     <string name="update">Update</string>
     <string name="the_last_deal">the last deal</string>
+    <string name="error_message_text">Ann error occurred</string>
 </resources>

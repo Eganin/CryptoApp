@@ -2,6 +2,7 @@ package com.example.cryptoapp.fragments.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.cryptoapp.api.ApiService
 import com.example.cryptoapp.application.CryptoApp
@@ -16,12 +17,21 @@ import java.util.concurrent.TimeUnit
 
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
     private val database = AppDatabase.getInstance(context = application)
-    var priceList = database.coinPriceInfoDao().getPriceList()
+
+    val priceList= database.coinPriceInfoDao().getPriceList()
+
     private val compositeDisposable = CompositeDisposable()
-    val errors = MutableLiveData<Throwable>()
+
+    private val _errors = MutableLiveData<Throwable>()
+    val errors: LiveData<Throwable> = _errors
+
+    private val _state = MutableLiveData<State>()
+    val states: LiveData<State> = _state
 
     init {
+        _state.value = State.LOADING
         loadData(api = (application as CryptoApp).apiService)
+        _state.value = State.SUCCESS
     }
 
     override fun onCleared() {
@@ -51,7 +61,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                 .subscribe({
                     database.coinPriceInfoDao().insertPriceList(list = it!!)
                 }, {
-                    //errors.value = it
+                   _errors.postValue(it)
                 })
         )
     }
@@ -76,3 +86,5 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
         return result
     }
 }
+
+enum class State { DEFAULT, LOADING, SUCCESS }
