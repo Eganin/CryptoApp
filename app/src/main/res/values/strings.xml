@@ -8,4 +8,5 @@
     <string name="update">Update</string>
     <string name="the_last_deal">the last deal</string>
     <string name="error_message_text">Ann error occurred</string>
+    <string name="count_coins">Count coins</string>
 </resources>
