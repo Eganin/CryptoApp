@@ -2,8 +2,10 @@ package com.example.cryptoapp.screens.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.cryptoapp.R
 import com.example.cryptoapp.adapters.CoinInfoPriceAdapter
+import com.example.cryptoapp.common.SampleBottomSheet
 import com.example.cryptoapp.data.pojo.CoinPriceInfo
 import com.example.cryptoapp.exceptions.ExceptionNavigationView
 import com.example.cryptoapp.fragments.detail.DetailCoinFragment
@@ -11,13 +13,13 @@ import com.example.cryptoapp.fragments.main.CoinListFragment
 import com.example.cryptoapp.routing.Router
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), Router, CoinInfoPriceAdapter.OnCLickCoinListener  {
+class MainActivity : AppCompatActivity(), Router, CoinInfoPriceAdapter.OnCLickCoinListener , SampleBottomSheet.ListenerBottom {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        try{
+        try {
             handlerNavigationView()
-        }catch (e : ExceptionNavigationView){
+        } catch (e: ExceptionNavigationView) {
             e.printStackTrace()
         }
         if (savedInstanceState == null) {
@@ -25,13 +27,14 @@ class MainActivity : AppCompatActivity(), Router, CoinInfoPriceAdapter.OnCLickCo
         }
 
     }
+
     override fun onCLick(coinPriceInfo: CoinPriceInfo) {
-        openDetailCoin(coinPriceInfo=coinPriceInfo)
+        openDetailCoin(coinPriceInfo = coinPriceInfo)
     }
 
-    override fun openCoinListFragment() {
+    override fun openCoinListFragment(count: Int) {
         supportFragmentManager.beginTransaction().apply {
-            add(R.id.main_container, CoinListFragment())
+            replace(R.id.main_container, CoinListFragment.newInstance(count=count))
             addToBackStack(null)
             commit()
         }
@@ -52,10 +55,17 @@ class MainActivity : AppCompatActivity(), Router, CoinInfoPriceAdapter.OnCLickCo
     private fun handlerNavigationView() {
         navigation_view_main.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.count_coins -> TODO()
+                R.id.count_coins -> {
+                    SampleBottomSheet().show(supportFragmentManager, "main_dialog")
+                    true
+                }
                 else -> throw ExceptionNavigationView()
             }
         }
+    }
+
+    override fun positiveClick(count: Int) {
+        openCoinListFragment(count=count)
     }
 
 }

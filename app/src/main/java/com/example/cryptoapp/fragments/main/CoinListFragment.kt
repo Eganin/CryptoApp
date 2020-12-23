@@ -2,11 +2,9 @@ package com.example.cryptoapp.fragments.main
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -32,6 +30,7 @@ class CoinListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
         coinViewModel = ViewModelProviders.of(this@CoinListFragment)[CoinViewModel::class.java]
+        coinViewModel.startDownloading(limit = arguments?.getInt(SAVE_COUNT_COINS) ?: 10)
 
         coinViewModel.priceList.observe(this@CoinListFragment, Observer {
             adapter.bindCoins(data = it)
@@ -54,6 +53,7 @@ class CoinListFragment : Fragment() {
         adapter.onCLickCoinListener = null
     }
 
+
     private fun setupUI() {
         coins_recycler_view.adapter = adapter
         coins_recycler_view.layoutManager =
@@ -70,9 +70,23 @@ class CoinListFragment : Fragment() {
 
     private fun setLoader(state: State) {
         when (state) {
-            State.LOADING -> {main_progress_bar.isVisible = true;Log.d("AAA","loading")}
+            State.LOADING -> main_progress_bar.isVisible = true
             State.SUCCESS -> main_progress_bar.isVisible = false
             State.DEFAULT -> main_progress_bar.visibility = View.GONE
         }
     }
+
+    companion object {
+        fun newInstance(count: Int): CoinListFragment {
+            val fragment = CoinListFragment()
+            val bundle = Bundle()
+            bundle.putInt(SAVE_COUNT_COINS, count)
+            fragment.arguments = bundle
+
+            return fragment
+        }
+
+        private const val SAVE_COUNT_COINS = "SAVE_COUNT_COINS"
+    }
+
 }

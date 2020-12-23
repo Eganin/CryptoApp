@@ -18,9 +18,10 @@ import java.util.concurrent.TimeUnit
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
     private val database = AppDatabase.getInstance(context = application)
 
-    val priceList= database.coinPriceInfoDao().getPriceList()
+    val priceList = database.coinPriceInfoDao().getPriceList()
 
     private val compositeDisposable = CompositeDisposable()
+    private val api = (application as CryptoApp).apiService
 
     private val _errors = MutableLiveData<Throwable>()
     val errors: LiveData<Throwable> = _errors
@@ -28,9 +29,9 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     private val _state = MutableLiveData<State>()
     val states: LiveData<State> = _state
 
-    init {
+    fun startDownloading(limit: Int) {
         _state.value = State.LOADING
-        loadData(api = (application as CryptoApp).apiService)
+        loadData(api = api, limit = limit)
         _state.value = State.SUCCESS
     }
 
@@ -42,9 +43,9 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     fun getDetailInfo(fromSymbol: String) =
         database.coinPriceInfoDao().getPriceInfoAboutCoin(fsym = fromSymbol)
 
-    private fun loadData(api: ApiService) {
+    private fun loadData(api: ApiService, limit: Int) {
         compositeDisposable.add(
-            api.getTopCoinInto()
+            api.getTopCoinInto(limit = limit)
                 //с первой загрузкой применяем map
                 .map { it.data?.map { it.coinInfo?.name }?.joinToString(",") }
                 // применение действия над каждым значением map
@@ -55,13 +56,14 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                 // выполнить загрузку заново если предыдущая упадет
                 .retry()
                 // repeat повторяется через какое-то время
-                .delaySubscription(10, TimeUnit.SECONDS)
+                //.delaySubscription(1000, TimeUnit.SECONDS)
+                .delay(10, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 //.observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     database.coinPriceInfoDao().insertPriceList(list = it!!)
                 }, {
-                   _errors.postValue(it)
+                    _errors.postValue(it)
                 })
         )
     }
