@@ -2,21 +2,16 @@ package com.example.cryptoapp.screens.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.example.cryptoapp.R
 import com.example.cryptoapp.adapters.CoinInfoPriceAdapter
-import com.example.cryptoapp.application.CryptoApp
 import com.example.cryptoapp.data.pojo.CoinPriceInfo
 import com.example.cryptoapp.exceptions.ExceptionNavigationView
 import com.example.cryptoapp.fragments.detail.DetailCoinFragment
 import com.example.cryptoapp.fragments.main.CoinListFragment
-import com.example.cryptoapp.fragments.main.CoinViewModel
-import com.example.cryptoapp.fragments.select.count.reviews.SelectCountReviews
-import com.example.cryptoapp.views.CoinViewHolder
+import com.example.cryptoapp.routing.Router
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), CoinInfoPriceAdapter.OnCLickCoinListener {
+class MainActivity : AppCompatActivity(), Router, CoinInfoPriceAdapter.OnCLickCoinListener  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,18 +20,24 @@ class MainActivity : AppCompatActivity(), CoinInfoPriceAdapter.OnCLickCoinListen
         }catch (e : ExceptionNavigationView){
             e.printStackTrace()
         }
-
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().apply {
-                add(R.id.main_container, CoinListFragment())
-                addToBackStack(null)
-                commit()
-            }
+            openCoinListFragment()
         }
 
     }
-
     override fun onCLick(coinPriceInfo: CoinPriceInfo) {
+        openDetailCoin(coinPriceInfo=coinPriceInfo)
+    }
+
+    override fun openCoinListFragment() {
+        supportFragmentManager.beginTransaction().apply {
+            add(R.id.main_container, CoinListFragment())
+            addToBackStack(null)
+            commit()
+        }
+    }
+
+    override fun openDetailCoin(coinPriceInfo: CoinPriceInfo) {
         supportFragmentManager.beginTransaction().apply {
             replace(
                 R.id.main_container,
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity(), CoinInfoPriceAdapter.OnCLickCoinListen
         }
     }
 
+
     private fun handlerNavigationView() {
         navigation_view_main.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -55,4 +57,5 @@ class MainActivity : AppCompatActivity(), CoinInfoPriceAdapter.OnCLickCoinListen
             }
         }
     }
+
 }
