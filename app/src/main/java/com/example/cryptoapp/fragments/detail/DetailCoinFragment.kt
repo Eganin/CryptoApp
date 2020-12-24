@@ -16,7 +16,7 @@ import com.example.cryptoapp.utils.imageOptions
 import kotlinx.android.synthetic.main.fragment_detail_coin.*
 import kotlinx.android.synthetic.main.item_coin_info.view.*
 
-class DetailCoinFragment private constructor() : Fragment() {
+class DetailCoinFragment : Fragment() {
 
     private lateinit var coinViewModel: CoinViewModel
 

@@ -40,6 +40,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
         compositeDisposable.dispose()
     }
 
+
     fun getDetailInfo(fromSymbol: String) =
         database.coinPriceInfoDao().getPriceInfoAboutCoin(fsym = fromSymbol)
 
@@ -61,6 +62,7 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                 .subscribeOn(Schedulers.io())
                 //.observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    database.coinPriceInfoDao().deletePriceList()
                     database.coinPriceInfoDao().insertPriceList(list = it!!)
                 }, {
                     _errors.postValue(it)

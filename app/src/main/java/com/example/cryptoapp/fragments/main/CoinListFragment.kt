@@ -23,31 +23,18 @@ class CoinListFragment : Fragment() {
     private lateinit var coinViewModel: CoinViewModel
     private val adapter = CoinInfoPriceAdapter()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_list_coins, container, false)
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_list_coins, container, false)
+        return view
+    }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        main_constraint_layout.setOnTouchListener { _, event ->
-            when (event?.action) {
-                MotionEvent.ACTION_UP -> {
-                    Log.d("AAA", "AAAAAAAAAAA")
-                    true
-                }
-                MotionEvent.ACTION_DOWN -> {
-                    Log.d("AAA", "AAAAAAAAAAA")
-                    true
-                }
-                else -> {
-                    Log.d("AAA", "AAAAAAAAAAA")
-                    false
-                }
-            }
-        }
         setupUI()
         coinViewModel = ViewModelProviders.of(this@CoinListFragment)[CoinViewModel::class.java]
         coinViewModel.startDownloading(limit = arguments?.getInt(SAVE_COUNT_COINS) ?: 10)

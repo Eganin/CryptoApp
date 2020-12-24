@@ -1,170 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/coin_poster"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_margin="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/ic_launcher" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/from_symbol_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:textColor="@color/purple"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@id/seperator"
-        app:layout_constraintTop_toBottomOf="@id/coin_poster"
-        tools:text="BTC" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/coin_poster"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_margin="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/seperator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:text="@string/seperator_text"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/coin_poster" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/from_symbol_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/purple"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@id/seperator"
+            app:layout_constraintTop_toBottomOf="@id/coin_poster"
+            tools:text="BTC" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/to_symbol_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="70dp"
-        android:textColor="@color/green_200"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@id/seperator"
-        app:layout_constraintTop_toBottomOf="@id/coin_poster"
-        tools:text="USD" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/seperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="@string/seperator_text"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coin_poster" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/detail_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/to_symbol_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="70dp"
+            android:textColor="@color/green_200"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@id/seperator"
+            app:layout_constraintTop_toBottomOf="@id/coin_poster"
+            tools:text="USD" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/price_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/price_text"
-        android:textColor="@color/green_200"
-        app:layout_constraintEnd_toStartOf="@id/detail_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/from_symbol_text" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/detail_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/price_min_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/at_least_one_day"
-        android:textColor="@color/purple"
-        app:layout_constraintEnd_toStartOf="@id/detail_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/price_label" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/price_text"
+            android:textColor="@color/green_200"
+            app:layout_constraintEnd_toStartOf="@id/detail_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/from_symbol_text" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/price_max_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/the_high_for_the_day"
-        android:textColor="@color/green_200"
-        app:layout_constraintEnd_toStartOf="@id/detail_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/price_min_label" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/price_min_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/at_least_one_day"
+            android:textColor="@color/purple"
+            app:layout_constraintEnd_toStartOf="@id/detail_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_label" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/last_deal_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/the_last_deal"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/detail_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/price_max_label" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/price_max_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/the_high_for_the_day"
+            android:textColor="@color/green_200"
+            app:layout_constraintEnd_toStartOf="@id/detail_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_min_label" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/update_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/update"
-        android:textColor="@color/purple"
-        app:layout_constraintEnd_toStartOf="@id/detail_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/last_deal_label" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/last_deal_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/the_last_deal"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/detail_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_max_label" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/price_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/detail_guideline"
-        app:layout_constraintTop_toBottomOf="@id/from_symbol_text" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/update_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/update"
+            android:textColor="@color/purple"
+            app:layout_constraintEnd_toStartOf="@id/detail_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/last_deal_label" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/price_min_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/green_200"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/detail_guideline"
-        app:layout_constraintTop_toBottomOf="@id/price_value" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/price_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/detail_guideline"
+            app:layout_constraintTop_toBottomOf="@id/from_symbol_text" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/price_max_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/detail_guideline"
-        app:layout_constraintTop_toBottomOf="@id/price_min_value" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/price_min_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/green_200"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/detail_guideline"
+            app:layout_constraintTop_toBottomOf="@id/price_value" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/last_deal_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/detail_guideline"
-        app:layout_constraintTop_toBottomOf="@id/price_max_label" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/price_max_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/detail_guideline"
+            app:layout_constraintTop_toBottomOf="@id/price_min_value" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/update_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textColor="@color/green_200"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/detail_guideline"
-        app:layout_constraintTop_toBottomOf="@id/last_deal_value" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/last_deal_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/detail_guideline"
+            app:layout_constraintTop_toBottomOf="@id/price_max_label" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/update_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textColor="@color/green_200"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/detail_guideline"
+            app:layout_constraintTop_toBottomOf="@id/last_deal_value" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
