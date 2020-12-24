@@ -52,12 +52,12 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
                 .flatMap { api.getFullPriceList(fromSymbol = it) }
                 .map { getPriceListFromRawData(coinPriceInfoRawData = it) }
                 // бесконечно повторяем загрузку
-                .repeat()
+                //.delay(10, TimeUnit.SECONDS)
+                //.repeat()
                 // выполнить загрузку заново если предыдущая упадет
                 .retry()
                 // repeat повторяется через какое-то время
                 //.delaySubscription(1000, TimeUnit.SECONDS)
-                .delay(10, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io())
                 //.observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

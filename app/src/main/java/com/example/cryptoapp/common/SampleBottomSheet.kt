@@ -40,13 +40,9 @@ class SampleBottomSheet : BottomSheetDialogFragment() {
 
         view.findViewById<Button>(R.id.btn_cancel).setOnClickListener { dialog?.cancel() }
         view.findViewById<Button>(R.id.btn_ok).setOnClickListener {
-            try{
-                val count = view.findViewById<AppCompatEditText>(R.id.edit_text_count_coins).text
-                    .toString().trim().toInt()
-            }catch (e : Exception){
-
-            }
-            listener?.positiveClick(count = count)
+            val count = view.findViewById<AppCompatEditText>(R.id.edit_text_count_coins).text
+                .toString().trim().toIntOrNull()
+            listener?.positiveClick(count = count ?: 10)
             dialog?.cancel()
         }
 

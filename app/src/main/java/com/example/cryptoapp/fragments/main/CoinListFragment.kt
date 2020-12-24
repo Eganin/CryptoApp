@@ -1,8 +1,11 @@
 package com.example.cryptoapp.fragments.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -26,8 +29,25 @@ class CoinListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_list_coins, container, false)
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        main_constraint_layout.setOnTouchListener { _, event ->
+            when (event?.action) {
+                MotionEvent.ACTION_UP -> {
+                    Log.d("AAA", "AAAAAAAAAAA")
+                    true
+                }
+                MotionEvent.ACTION_DOWN -> {
+                    Log.d("AAA", "AAAAAAAAAAA")
+                    true
+                }
+                else -> {
+                    Log.d("AAA", "AAAAAAAAAAA")
+                    false
+                }
+            }
+        }
         setupUI()
         coinViewModel = ViewModelProviders.of(this@CoinListFragment)[CoinViewModel::class.java]
         coinViewModel.startDownloading(limit = arguments?.getInt(SAVE_COUNT_COINS) ?: 10)
