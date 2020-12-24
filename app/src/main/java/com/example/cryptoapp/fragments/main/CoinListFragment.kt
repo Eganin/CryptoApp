@@ -3,9 +3,7 @@ package com.example.cryptoapp.fragments.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -28,10 +26,9 @@ class CoinListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_list_coins, container, false)
-        return view
-    }
+    ): View?= inflater.inflate(R.layout.fragment_list_coins, container, false)
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -97,3 +94,4 @@ class CoinListFragment : Fragment() {
     }
 
 }
+
