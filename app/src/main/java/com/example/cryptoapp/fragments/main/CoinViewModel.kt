@@ -4,15 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.cryptoapp.api.ApiService
 import com.example.cryptoapp.application.CryptoApp
-import com.example.cryptoapp.data.pojo.CoinPriceInfo
-import com.example.cryptoapp.data.pojo.CoinPriceInfoRawData
 import com.example.cryptoapp.database.AppDatabase
-import com.google.gson.Gson
+import com.example.cryptoapp.repositories.CoinRepository
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
@@ -31,7 +26,14 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     fun startDownloading(limit: Int) {
         _state.value = State.LOADING
-        loadData(api = api, limit = limit)
+
+        CoinRepository(
+            apiService = api,
+            database = database,
+            errorsData = _errors,
+            limit = limit
+        ).getData()
+
         _state.value = State.SUCCESS
     }
 
@@ -44,51 +46,6 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     fun getDetailInfo(fromSymbol: String) =
         database.coinPriceInfoDao().getPriceInfoAboutCoin(fsym = fromSymbol)
 
-    private fun loadData(api: ApiService, limit: Int) {
-        compositeDisposable.add(
-            api.getTopCoinInto(limit = limit)
-                //с первой загрузкой применяем map
-                .map { it.data?.map { it.coinInfo?.name }?.joinToString(",") }
-                // применение действия над каждым значением map
-                .flatMap { api.getFullPriceList(fromSymbol = it) }
-                .map { getPriceListFromRawData(coinPriceInfoRawData = it) }
-                // бесконечно повторяем загрузку
-                //.delay(10, TimeUnit.SECONDS)
-                //.repeat()
-                // выполнить загрузку заново если предыдущая упадет
-                .retry()
-                // repeat повторяется через какое-то время
-                //.delaySubscription(1000, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                //.observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    database.coinPriceInfoDao().deletePriceList()
-                    database.coinPriceInfoDao().insertPriceList(list = it!!)
-                }, {
-                    _errors.postValue(it)
-                })
-        )
-    }
-
-    private fun getPriceListFromRawData(
-        coinPriceInfoRawData: CoinPriceInfoRawData
-    ): List<CoinPriceInfo> {
-        val result = ArrayList<CoinPriceInfo>()
-        val jsonObject = coinPriceInfoRawData.coinPriceInfoJsonData ?: return result
-        val coinKeySet = jsonObject.keySet()
-        for (coinKey in coinKeySet) {
-            val currencyJson = jsonObject.getAsJsonObject(coinKey)
-            val currencyKeySet = currencyJson.keySet()
-            for (currencyKey in currencyKeySet) {
-                val priceInfo = Gson().fromJson(
-                    currencyJson.getAsJsonObject(currencyKey),
-                    CoinPriceInfo::class.java
-                )
-                result.add(priceInfo)
-            }
-        }
-        return result
-    }
 }
 
 enum class State { DEFAULT, LOADING, SUCCESS }
